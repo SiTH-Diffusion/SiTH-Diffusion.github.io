@@ -1,8 +1,193 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
 <html>
+	<head>
+		<title>CustomHumans</title>
+		<meta charset="utf-8" />
 
-<body>
-  <h1>YOUR NAME is</h1>
-  <p>Welcome to my website!</p>
-</body>
+        
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="assets/css/bulma.min.css">
+        <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
+        <link rel="stylesheet" href="assets/css/bulma-slider.min.css">
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="screen,projection" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="shortcut icon" href="images/opt_icon.png" />
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="assets/js/bulma-carousel.min.js"></script>
+        <script src="assets/js/bulma-slider.min.js"></script>
+        <script src="assets/js/index.js"></script>
+        <script src="assets/js/video_comparison.js"></script>
+
+	</head>
+	<body>
+
+		<!-- Home -->
+        <div class="wrapper first style1">
+            <article class="container" id="home">
+                <h2> <img class="responsive-img" src="images/icon/blade1.png" width="30px">SiTH<img class="responsive-img" src="images/icon/blade2.png" width="30px">: Single-view Textured Human Reconstruction <br> with Image-Conditioned Diffusion</h2>
+                <br>
+                <div class="row center">
+                    <div class="author col l4 m6 s12"><a href="https://azuxmioy.github.io/" target="_blank">Hsuan-I Ho</a></div>
+                    <div class="author col l4 m6 s12"><a href="https://ait.ethz.ch/people/song" target="_blank">Jie Song</a></div>
+                    <div class="author col l4 m6 s12"><a href="https://ait.ethz.ch/people/hilliges" target="_blank">Otmar Hilliges</a></div>
+                </div>
+                <br>
+                <div class="col">
+                    <div style="width: 20%; margin: 0em auto 0em auto">
+                        <a  href="https://ait.ethz.ch/"><img class="responsive-img" src="images/ait_logo.png"></a>
+                    </div>
+                    <div class="institute">
+                        <a href="https://inf.ethz.ch/" target="_blank">Department of Computer Science</a>,
+                        <a href="https://ethz.ch/en.html" target="_blank">ETH Zürich</a>
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 text-center">
+                        <ul class="nav nav-pills nav-justified">
+                            <li>
+                                <a href="https://files.ait.ethz.ch/projects/custom-humans/paper.pdf">
+                                    <img src="images/icon/darth.png" width="60px">
+                                    <h4><strong>Paper<br>(arXiv)</strong></h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                <img src="images/icon/Yt_icon_2017_print.png" width="60px">
+                                    <h4><strong>Video (Coming Soon)</strong></h4>
+                                </a>
+                            </li>                       
+                            <li>
+                                <a href="https://github.com/SiTH-Diffusion/SiTH" target="_blank">
+                                    <image src="images/icon/github.png" width="60px">
+                                    <h4><strong>Code (Coming Soon)<br></strong></h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
+		<!-- Abstract -->
+        <div class="wrapper style1">
+            <article id="abstract">
+                <div class="container">
+                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
+                        <div class="col s10 offset-s1">
+                            <img class="responsive-img" src="images/teaser.png" style="width: 100%"/>
+                        </div>                    
+                    </div>  
+                    <h2>Abstract</h2>
+                    <p style="text-align:justify">
+                        A long-standing goal of 3D human reconstruction is to create lifelike and fully detailed 3D humans from single images. The main challenge lies in inferring unknown human shapes, clothing, and texture information in areas not visible in the images. To address this, we propose SiTH, a novel pipeline that uniquely integrates an image-conditioned diffusion model into a 3D mesh reconstruction workflow. At the core of our method lies the decomposition of the ill-posed single-view reconstruction problem into hallucination and reconstruction subproblems. For the former, we employ a powerful generative diffusion model to hallucinate back appearances from the input images. For the latter, we leverage skinned body meshes as guidance to recover full-body texture meshes from the input and back-view images. Our designs enable training of the pipeline with only about 500 3D human scans while maintaining its generality and robustness. Extensive experiments and user studies on two 3D reconstruction benchmarks demonstrated the efficacy of our method in generating realistic, fully textured 3D humans from a diverse range of unseen images.                    </p>
+                </div>
+            </article>
+        </div>
+
+		<!-- Paper -->
+        <div class="wrapper style1">
+            <article id="paper">
+                <div class="container">
+                
+                    <h2>Video</h2>
+                    Coming Soon
+                    <div class="row center" style="margin: 2em auto 2em auto">
+                        <div class="col s10 offset-s1">
+                            <div class="youtube-wrapper">
+                                <iframe allowfullscreen="allowfullscreen" src=""></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 
+                    <h2>Method</h2>
+                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
+                        <div class="col l6 m6 s6">
+                            <img class="responsive-img" src="images/rep.gif"/>
+                        </div>
+                        <div class="col l6 m6 s6">
+                            <img class="responsive-img" src="images/query.jpg"/>
+                        </div>
+                    </div>
+
+                    <h3>Controllable Hybrid Human Representation</h3>
+                    <p style="text-align:justify">
+                        While neural avatars can be highly realistic, the question of how to edit such avatars remains open.
+                        To enable 3D avatars with high-fidelity representational power and local editing capabilities, 
+                        we propose a novel hybrid representation that combines the advantages of neural fields
+                        (flexibility and modeling power) with LBS-articulated mesh models (ease of deformation and full explicit control).
+                        We construct a trainable feature codebook which stores local texture and high-fidelity geometry respectively for each vertex.
+                        Training and inference require queries of these features.
+                        A query point <i>x<sub>g</sub></i> is projected onto the nearest triangle.
+                        The global coordinates are then transformed into triangle coordinates <i>x<sub>l</sub></i>.
+                        The triangle’s vertex indices are used to retrieve local texture and geometry features. 
+
+                    </p>
+
+                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
+                        <div class="col s10 offset-s1">
+                            <img class="responsive-img" src="images/fitting.gif" style="width: 100%"/>
+                        </div>                    
+                    </div>
+                    <h3>Avatar Customization by Feature Inversion</h3>
+                    <p style="text-align:justify">
+                        Our method allows for creating and personalizing avatars with diverse body shapes, appearances, and local
+                        details. We leverage the above representation to train a multi-subject model which enables the transfer
+                        of local features across subjects. We note that since the mesh topology of the LBS model is identical, this enables
+                        us to learn a shared feature space from multiple posed scans. Given a trained model, our method can inverse any unseen 
+                        3D scans into feature codebooks. This allows us to locally change either the clothing geometry or appearance of neural 
+                        avatars given the corresponding feature indices. It is worth noting that resulting avatars enable detailed pose control 
+                        via the SMPL-X parameters without affecting the fitted texture and geometry.
+                    </p>
+                    -->
+                </div>
+            </article>
+        </div>
+
+
+        <!-- Acknowledgement -->
+        <div class="wrapper style3">
+            <article>
+                <div class="container">
+                    <h2>Acknowledgement</h2>
+                    <p  style="text-align:left">
+                        We thank Xu Chen for insightful discussions, Manuel Kaufmann for suggestions on writing and the title, and Christoph Gebhardt, Marcel Buehler, and Juan-Ting Lin for their writing advice.</p>
+                </div>
+            </article>
+        </div>
+      
+        <!-- Copyright -->
+        <div class="wrapper last style4">
+            <article class="container">
+                <footer>
+                    <ul id="copyright">
+                        <li>&copy; 2023 Hsuan-I Ho.</li><li>Thanks: <a href="http://html5up.net" target="_blank">HTML5 UP</a> and Po-Chen Wu provides this template</li>
+                    </ul>
+                </footer>
+            </article>
+        </div>
+
+		<!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/skel.min.js"></script>
+        <script src="assets/js/skel-viewport.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/materialize.js"></script>
+    </body>
 </html>
