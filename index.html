@@ -76,10 +76,22 @@
                                     <h4><strong>Code<br></strong></h4>
                                 </a>
                             </li>
+                            <li>
+                                <a href="https://ait.ethz.ch/sith-demo" target="_blank">
+                                    <image src="images/icon/hf.png" width="60px">
+                                    <h4><strong>Demo<br></strong></h4>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </article>
+
+            <div class="container" style="width:40%; margin: 2em auto 2em auto">
+                <h2>News:</h2>
+                <h4>[April 24, 2024] Gradio demo for 3D human creation is now available.</h4>
+                <h4>[April 15, 2024] Release demo code, models, and the evaluation benchmark.</h4>
+            </div>
         </div>
 
 
@@ -87,14 +99,32 @@
         <div class="wrapper style1">
             <article id="abstract">
                 <div class="container">
+
+                    <h2>TL;DR</h2>
+                    <ul class="default" style="text-align:left">
+                        <li>SiTH is a <b>data-driven (non-optimization)</b> single-view 3D reconstruction pipeline employing a novel <b>image-conditioned diffusion model</b>.</li>
+                        <li>SiTH reconstructs a <b>fully-textured</b> and high-quality 3D human mesh from a single image in <b>2 minutes</b>.</li>
+                        <li>SiTH can be trained with as few as <b>500 3D human scans</b> and generalizes well to diverse images such as images from Stable Diffusion. (<b>Check out our demo!</b>)</li>
+                        <li>To foster future research, we contribute a <b>new evaluation benchmark</b> for single-view 3D human reconstruction.</li>
+                    </ul>
+
                     <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
                         <div class="col s10 offset-s1">
-                            <img class="responsive-img" src="images/teaser.png" style="width: 100%"/>
+                            <img class="responsive-img" src="images/teaser.jpg" style="width: 100%"/>
                         </div>                    
                     </div>  
                     <h2>Abstract</h2>
                     <p style="text-align:justify">
-                        A long-standing goal of 3D human reconstruction is to create lifelike and fully detailed 3D humans from single images. The main challenge lies in inferring unknown human shapes, clothing, and texture information in areas not visible in the images. To address this, we propose SiTH, a novel pipeline that uniquely integrates an image-conditioned diffusion model into a 3D mesh reconstruction workflow. At the core of our method lies the decomposition of the ill-posed single-view reconstruction problem into hallucination and reconstruction subproblems. For the former, we employ a powerful generative diffusion model to hallucinate back appearances from the input images. For the latter, we leverage skinned body meshes as guidance to recover full-body texture meshes from the input and back-view images. Our designs enable training of the pipeline with only about 500 3D human scans while maintaining its generality and robustness. Extensive experiments and user studies on two 3D reconstruction benchmarks demonstrated the efficacy of our method in generating realistic, fully textured 3D humans from a diverse range of unseen images.                    </p>
+                        A long-standing goal of 3D human reconstruction is to create lifelike and fully detailed 3D humans from single-view images. 
+                        The main challenge lies in inferring unknown body shapes, appearances, and clothing details in areas not visible in the images. 
+                        To address this, we propose SiTH, a novel pipeline that uniquely integrates an image-conditioned diffusion model into a 3D mesh 
+                        reconstruction workflow. At the core of our method lies the decomposition of the challenging single-view reconstruction problem 
+                        into generative hallucination and reconstruction subproblems. For the former, we employ a powerful generative diffusion model to 
+                        hallucinate unseen back-view appearance based on the input images. For the latter, we leverage skinned body meshes as guidance to 
+                        recover full-body texture meshes from the input and back-view images. SiTH requires as few as 500 3D human scans for training while 
+                        maintaining its generality and robustness to diverse images. Extensive evaluations on two 3D human benchmarks, including our newly 
+                        created one, highlighted our method's superior accuracy and perceptual quality in 3D textured human reconstruction.
+                    </p>
                 </div>
             </article>
         </div>
@@ -112,51 +142,297 @@
                             </div>
                         </div>
                     </div>
-                    <!-- 
-                    <h2>Method</h2>
-                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
-                        <div class="col l6 m6 s6">
-                            <img class="responsive-img" src="images/rep.gif"/>
-                        </div>
-                        <div class="col l6 m6 s6">
-                            <img class="responsive-img" src="images/query.jpg"/>
-                        </div>
-                    </div>
-
-                    <h3>Controllable Hybrid Human Representation</h3>
-                    <p style="text-align:justify">
-                        While neural avatars can be highly realistic, the question of how to edit such avatars remains open.
-                        To enable 3D avatars with high-fidelity representational power and local editing capabilities, 
-                        we propose a novel hybrid representation that combines the advantages of neural fields
-                        (flexibility and modeling power) with LBS-articulated mesh models (ease of deformation and full explicit control).
-                        We construct a trainable feature codebook which stores local texture and high-fidelity geometry respectively for each vertex.
-                        Training and inference require queries of these features.
-                        A query point <i>x<sub>g</sub></i> is projected onto the nearest triangle.
-                        The global coordinates are then transformed into triangle coordinates <i>x<sub>l</sub></i>.
-                        The triangle’s vertex indices are used to retrieve local texture and geometry features. 
-
-                    </p>
-
+                    
+                    <h2>Method Overview</h2>
                     <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
                         <div class="col s10 offset-s1">
-                            <img class="responsive-img" src="images/fitting.gif" style="width: 100%"/>
+                            <img class="responsive-img" src="images/framework.jpg" style="width: 100%"/>
+                        </div>    
+                    </div>
+
+                    <h3>Hallucination and Reconstruction</h3>
+                    <p style="text-align:justify">
+                        At the core of SiTH is the decomposition of the challenging single-view problem into two subproblems: 
+                        generative back-view hallucination and mesh reconstruction. For hallucination, we harness the generative 
+                        capabilities of diffusion models to infer unobserved back-view appearances from the input images. 
+                        For reconstruction, we utilize a skinned body mesh, providing essential 3D guidance for accurate human mesh reconstruction. 
+                        This decomposition strategy allows our pipeline to be trained efficiently with just 500 3D scans, 
+                        while still robustly handling unseen images.
+                    </p>
+
+                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
+                        <div class="col s6 offset-s3">
+                            <img class="responsive-img" src="images/diffusion.jpg" style="width: 100%"/>
                         </div>                    
                     </div>
-                    <h3>Avatar Customization by Feature Inversion</h3>
+
+                    <h3>Image-conditioned Diffusion</h3>
                     <p style="text-align:justify">
-                        Our method allows for creating and personalizing avatars with diverse body shapes, appearances, and local
-                        details. We leverage the above representation to train a multi-subject model which enables the transfer
-                        of local features across subjects. We note that since the mesh topology of the LBS model is identical, this enables
-                        us to learn a shared feature space from multiple posed scans. Given a trained model, our method can inverse any unseen 
-                        3D scans into feature codebooks. This allows us to locally change either the clothing geometry or appearance of neural 
-                        avatars given the corresponding feature indices. It is worth noting that resulting avatars enable detailed pose control 
-                        via the SMPL-X parameters without affecting the fitted texture and geometry.
+                        Compared to text-conditioning in traditional diffusion models, our image-conditioning strategy is more consistent and accurate, 
+                        allowing for building a data-driven 3D reconstruction pipeline. First, the pretrained CLIP and VAE encoders ensure the output images 
+                        maintain visual consistency with the front-view images. Additionally, we render UV maps from the SMPL-X body mesh and extract 
+                        silhouette masks from the back-view images. These additional conditional controls ensure the human poses in the output images match 
+                        those in the front view. To preserve the diffusion model's generative power, we specifically optimize the ControlNet and 
+                        cross-attention layers with only a small amount of 3D human data.
                     </p>
-                    -->
+                    
                 </div>
             </article>
         </div>
 
+        <!-- Results -->
+
+        <div class="wrapper style1">
+            <article id="results">
+                <div class="container">
+                    <h2>Results</h2>
+                    <h3>Single-view 3D Human Reconstruction</h3>
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh1" loop autoplay muted src="videos/000.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh1Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh2" loop autoplay muted src="videos/001.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh2Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh3" loop autoplay muted src="videos/003.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh3Merge"></canvas>
+                        </div>
+                    </div>
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh4" loop autoplay muted src="videos/003.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh4Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh5" loop autoplay muted src="videos/004.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh5Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh6" loop autoplay muted src="videos/005.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh6Merge"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh7" loop autoplay muted src="videos/006.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh7Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh8" loop autoplay muted src="videos/007.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh8Merge"></canvas>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video"  id="mesh9" loop autoplay muted src="videos/008.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh9Merge"></canvas>
+                        </div>
+                    </div>
+
+                    <h3>Text-guided 3D Human Creation</h3>
+
+                    <div class="row center" style="width: 50%; margin: 2em auto 2em auto">
+                        <div class="col s6 offset-s3">
+                            <img class="responsive-img" src="images/sith_demo.gif" style="width: 100%"/>
+                        </div>
+                        <h4>SiTH can be easily combined with powerful 2D text-to-image models.</h4>
+                    </div>
+
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh10" loop autoplay muted src="videos/011.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh10Merge"></canvas>
+                            <br>
+                            "A male wearing a white suit"
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh11" loop autoplay muted src="videos/012.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh11Merge"></canvas>
+                            <br>
+                            "A man wearing brown t-shirt and pants"
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesh12" loop autoplay muted src="videos/013.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesh12Merge"></canvas>
+                            <br>
+                            "A woman in a white t-shirt and a tennis skirt"
+                        </div>
+                    </div>
+
+
+                </div> 
+            </article>
+        </div>
+
+        <!-- Download -->
+
+        <div class="wrapper style1">
+            <article id="benchmark">
+                <div class="container">
+                    <h2>Benchmark Evaluation</h2>
+                    The benchmark is based on the <a href="https://custom-humans.github.io/#download" target="_blank">CustomHumans</a> dataet. To access the benchmark, please apply the dataset directly.
+                    <br>
+                    <br>
+                    <h3>Single-view 3D Human Reconstruction</h3>
+                    <div class="table-wrapper" align="center">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Methods</th>
+                                    <th>P-to-S (cm) ↓</th>
+                                    <th>S-to-P (cm) ↓</th>
+                                    <th>NC ↑</th>
+                                    <th>f-Score ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h6>PIFu <a href="https://github.com/shunsukesaito/PIFu">[Saito2019]</a></h6></td>
+                                    <td>2.209</td>
+                                    <td>2.582</td>
+                                    <td>0.805</td>
+                                    <td>34.881</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>PIFuHD <a href="https://github.com/facebookresearch/pifuhd">[Saito2020]</a></h6></td>
+                                    <td>2.107</td>
+                                    <td><ins>2.228</ins></td>
+                                    <td>0.804</td>
+                                    <td><strong>39.076</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><h6>PaMIR <a href="https://github.com/ZhengZerong/PaMIR">[Zheng2021]</a></h6></td>
+                                    <td>2.181</td>
+                                    <td>2.507</td>
+                                    <td><ins>0.813</ins></td>
+                                    <td>35.847</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>FOF <a href="https://github.com/fengq1a0/FOF">[Feng2022]</a></h6></td>
+                                    <td><ins>2.079</ins></td>
+                                    <td>2.644</td>
+                                    <td>0.808</td>
+                                    <td>36.013</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>2K2K <a href="https://github.com/SangHunHan92/2K2K">[Han2023]</a></h6></td>
+                                    <td>2.488</td>
+                                    <td>3.292</td>
+                                    <td>0.796</td>
+                                    <td>30.186</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>ICON* <a href="https://github.com/YuliangXiu/ICON">[Xiu2022]</a></h6></td>
+                                    <td>2.256</td>
+                                    <td>2.795</td>
+                                    <td>0.791</td>
+                                    <td>30.437</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>ECON* <a href="https://github.com/fengq1a0/FOF">[Xiu2023]</a></h6></td>
+                                    <td>2.483</td>
+                                    <td>2.680</td>
+                                    <td>0.797</td>
+                                    <td>30.894</td>
+                                </tr>
+                                <tr>
+                                    <td><h6>SiTH* (Ours)</h6></td>
+                                    <td><strong>1.871</strong></td>
+                                    <td><strong>2.045</strong></td>
+                                    <td><strong>0.826</strong></td>
+                                    <td><ins>37.029</ins></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4>*indicates methods trained on the same THuman2.0 dataset.</h4>
+                    </div>
+
+                    <div class="row center" style="width: 100%; margin: 2em auto 2em auto">
+                        <div class="col s12">
+                            <img class="responsive-img" src="images/benchmark_3D.jpg" style="width: 100%"/>
+                        </div>                    
+                    </div>
+
+                    <h3>Comparison with Optimization-based (Score Distillation) Approaches</h3>
+
+
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="mesha" loop autoplay muted src="videos/a.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="meshaMerge"></canvas>
+                            <br>
+                            <h5>Zero-1-to-3, 10 mins<h5>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="meshb" loop autoplay muted src="videos/b.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="meshbMerge"></canvas>
+                            <br>
+                            <h5>Magic-1-to-3, 6 hours<h5>
+                        </div>
+                        <div class="col l4 m6 s12 text-center">
+                            <video class="video" id="meshc" loop autoplay muted src="videos/c.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="meshcMerge"></canvas>
+                            <br>
+                            <h5>TeCH, 6 hours<h5>
+                        </div>
+                    </div>
+
+                    <div class="row center" style="width: 100%; margin: 1em auto 1em auto" >
+                        <div class="col l6 m6 s12 text-center">
+                            <video class="video" id="meshd" loop autoplay muted src="videos/d.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="meshdMerge"></canvas>
+                            <br>
+                            <h5>SiTH (Ours), 2 mins<h5>
+                        </div>
+                        <div class="col l6 m6 s12 text-center">
+                            <video class="video" id="meshe" loop autoplay muted src="videos/e.mp4" onplay="resizeAndPlay(this)"></video>
+                            <canvas height=0 class="videoMerge" id="mesheMerge"></canvas>
+                            <br>
+                            <h5>GT Reference<h5>
+                        </div>
+                    </div>
+
+                    <div class="row center" style="width: 70%; margin: 2em auto 2em auto">
+                        <div class="col s12">
+                            <img class="responsive-img" src="images/vs_tech.jpg" style="width: 100%"/>
+                        </div>
+                        <h4>Compared to optimization-based methods (Score Distillation), 
+                            SiTH reconstructs consistent facial textures that align with the input images and their underlying geometry.</h4>
+                 
+                    </div>
+
+
+            </article>
+        </div>
+
+
+
+        <!-- Reference -->
+        <div class="wrapper style2">
+            <article id="references" class="container">
+                <header>
+                    <h3>References</h3>
+                </header>
+                <ul class="default" style="text-align:left">
+
+
+                </ul>
+                <div class="subtitle">
+                    <h3>Bibtex</h3>
+<pre><cite>@inproceedings{ho2024sith,
+    title={SiTH: Single-view Textured Human Reconstruction with Image-Conditioned Diffusion},
+    author={Ho, Hsuan-I and Song, Jie and Hilliges, Otmar},
+    booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year={2024}
+  }</cite></pre>
+                </div>
+            </article>
+
+
+            
+        </div>
 
         <!-- Acknowledgement -->
         <div class="wrapper style3">
