@@ -168,7 +168,7 @@ table {
 /* Materialboxed */
 
 .materialboxed {
-  display: block;
+  display: none;
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
   position: relative;
@@ -176,7 +176,7 @@ table {
 }
 
 .materialboxed:hover {
-  will-change: left, top, width, height;
+  will-change: left, top, width, height, display;
 }
 
 .materialboxed:hover:not(.active) {
@@ -184,6 +184,7 @@ table {
 }
 
 .materialboxed.active {
+  display: block;
   cursor: -webkit-zoom-out;
   cursor: zoom-out;
 }
